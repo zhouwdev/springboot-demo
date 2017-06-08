@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+
+
+db:
+  mysql:
+      driver: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+      username: root
+      password: root
+      maxActive: 20
+      dialect: MySQL
+
+#允许跨域的域名及端口
+domain:
+   - http://localhost:9000
+   - http://127.0.0.1:9000
+
+

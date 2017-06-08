@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$"/>
+            <property name="replaceString" value="Criteria"/>
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.MybatisCriteriaPlugin">
+            <property name="commonFile" value="true"/>
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.DeleteByIdsPlugin">
+            <property name="columnName" value="is_active"/>
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.ExtendsInterfacePlugin">
+            <property name="extendInterface" value="springboot.demo.mapper.IBaseMapper"/>
+        </plugin>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"></property>
+            <property name="suppressDate" value="true"></property>
+            <property name="javaFileEncoding" value="utf-8"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${driverClass}"
+                        connectionURL="${connectionURL}"
+                        userId="${userId}"
+                        password="${password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="springboot.demo.modles" targetProject="${targetProject}/src/main/java">
+            <property name="enableSubPackages" value="false"></property>
+            <property name="trimStrings" value="true"></property>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="${targetProject}/src/main/resources">
+            <property name="enableSubPackages" value="false"></property>
+        </sqlMapGenerator>
+
+
+        <javaClientGenerator targetPackage="springboot.demo.mapper" targetProject="${targetProject}/src/main/java"
+                             type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <table tableName="tadmin_role" enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>
+    </context>
+</generatorConfiguration>
