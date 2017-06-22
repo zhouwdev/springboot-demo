@@ -10,5 +10,15 @@ import java.util.List;
 @ConfigurationProperties
 public class DomainConfig {
 
+    public void setDomain(List<String> domain) {
+        this.domain = domain;
+    }
+
+    public List<String> getDomain() {
+        return domain;
+    }
+
     public List<String> domain;
+
+
 }

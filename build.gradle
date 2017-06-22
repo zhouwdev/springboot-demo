@@ -49,6 +49,7 @@ dependencies {
             "ch.qos.logback:logback-classic",
             "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-redis:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-security:${springBootVersion}",
             "org.slf4j:slf4j-api" ,
             "org.slf4j:jcl-over-slf4j",
             "commons-collections:commons-collections:${collections_version}",
@@ -64,6 +65,7 @@ dependencies {
             "io.springfox:springfox-swagger2:${swagger_version}",
             "org.springframework:spring-jdbc",
             "org.aspectj:aspectjweaver:${aspectj_version}",
+            "org.springframework.session:spring-session:${springSession_version}",
 
     )
 
