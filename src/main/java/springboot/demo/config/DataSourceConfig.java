@@ -4,61 +4,64 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
-/**
- * Created by zhouwei on 2017/6/5.
- */
 
-/**
- * 数据库连接池配置
- */
+@MapperScan(basePackages = "com.springboot.core.mapper.1", sqlSessionFactoryRef = "sqlSessionFactory1")
+class dataSourceConfig1 {
 
-@Configuration
-@MapperScan(basePackages = "com.shangying.acctManage.core.mapper")
-public class DataSourceConfig {
-    @Autowired
-    private Environment env;
-
-    @Bean(destroyMethod = "close")
-    public DataSource dataSource() {
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl(env.getProperty("db.mysql.url"));
-        dataSource.setUsername(env.getProperty("db.mysql.username"));
-        dataSource.setPassword(env.getProperty("db.mysql.password"));
-        dataSource.setMaxActive(Integer.valueOf(env.getProperty("db.mysql.maxActive")));
-        dataSource.setInitialSize(0);
-        dataSource.setMinIdle(0);
-        dataSource.setMaxWait(600001);
-        dataSource.setValidationQuery("SELECT 1");
-        dataSource.setTestOnReturn(false);
-        dataSource.setTestOnBorrow(false);
-        dataSource.setTestWhileIdle(true);
-        dataSource.setTimeBetweenEvictionRunsMillis(60000l);
-        dataSource.setMinEvictableIdleTimeMillis(25200000l);
-        dataSource.setRemoveAbandoned(true);
-        dataSource.setRemoveAbandonedTimeout(1800);
-        dataSource.setLogAbandoned(true);
-        return dataSource;
+    @Primary
+    @Bean(destroyMethod = "close", name = "datasource1")
+    @ConfigurationProperties(prefix = "db.mysql_1")
+    DataSource datasource1() {
+        return new DruidDataSource();
     }
 
-    @Bean
-    public DataSourceTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
+    @Primary
+    @Bean(name = "dataSourceTransactionManager1")
+    DataSourceTransactionManager dataSourceTransactionManager1(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+    @Primary
+    @Bean(name = "sqlSessionFactory1")
+    SqlSessionFactory sqlSessionFactory1(DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        //sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*Mapper.xml"));
+        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/1/*Mapper.xml"));
         return sessionFactory.getObject();
     }
+
+}
+
+
+@MapperScan(basePackages = "com.springboot.core.mapper.2", sqlSessionFactoryRef = "sqlSessionFactory2")
+class dataSourceConfig2 {
+
+    @Bean(destroyMethod = "close", name = "datasource2")
+    @ConfigurationProperties(prefix = "db.mysql_2")
+    DataSource datasource2() {
+        return new DruidDataSource();
+    }
+
+    @Bean(name = "dataSourceTransactionManager2")
+    DataSourceTransactionManager transDataSourceTransactionManager(@Qualifier("datasource2") DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean(name = "sqlSessionFactory2")
+    SqlSessionFactory sqlSessionFactory2(@Qualifier("datasource2") DataSource dataSource) throws Exception {
+        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/2/*Mapper.xml"));
+        return sessionFactory.getObject();
+    }
+
 }

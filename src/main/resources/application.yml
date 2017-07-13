@@ -10,13 +10,43 @@ spring:
 
 
 db:
-  mysql:
-      driver: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-      username: root
-      password: root
-      maxActive: 20
-      dialect: MySQL
+  mysql_1:
+    driverClass: com.mysql.jdbc.Driver
+    maxActive: 20
+    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: root
+    password: root
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 25200000
+    initialSize: 0
+    minIdle: 0
+    maxWait: 60000
+    validationQuery: "SELECT 1"
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    removeAbandoned: true
+    removeAbandonedTimeout: 1800
+    logAbandoned: true
+
+  mysql_2:
+    driverClass: com.mysql.jdbc.Driver
+    maxActive: 20
+    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: root
+    password: root
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 25200000
+    initialSize : 0
+    minIdle: 0
+    maxWait: 60000
+    validationQuery: "SELECT 1"
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    removeAbandoned: true
+    removeAbandonedTimeout: 1800
+    logAbandoned: true
 
 #允许跨域的域名及端口
 domain:
