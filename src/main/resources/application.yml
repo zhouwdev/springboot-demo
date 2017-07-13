@@ -3,9 +3,10 @@ server:
 
 spring:
   redis:
-    host: 127.0.0.1
+    host: 10.52.2.205
     port: 6379
-    password:
+    database: 2
+    password: 90-=op[]
 
 
 db:
