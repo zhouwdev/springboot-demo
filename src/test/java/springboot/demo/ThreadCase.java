@@ -5,8 +5,7 @@ import org.assertj.core.util.Compatibility;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -96,5 +95,38 @@ public class ThreadCase {
 
     public interface ConcurrentTask {
         void run();
+    }
+
+    public static void main(String[] args) {
+       /* ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,
+                new ArrayBlockingQueue<Runnable>(5));*/
+        ExecutorService es = Executors.newCachedThreadPool();
+
+        for(int i=0;i<15;i++){
+            MyTask myTask = new MyTask(i);
+            es.execute(myTask);
+          /*  System.out.println("线程池中线程数目："+es.getPoolSize()+"，队列中等待执行的任务数目："+
+                    es.getQueue().size()+"，已执行玩别的任务数目："+es.getCompletedTaskCount());*/
+        }
+        es.shutdown();
+    }
+}
+
+class MyTask implements Runnable {
+    private int taskNum;
+
+    public MyTask(int num) {
+        this.taskNum = num;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("正在执行task "+taskNum);
+        try {
+            Thread.currentThread().sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("task "+taskNum+"执行完毕");
     }
 }

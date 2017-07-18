@@ -44,30 +44,30 @@ ext{
 }
 
 dependencies {
-    compile(
-            "ch.qos.logback:logback-access",
-            "ch.qos.logback:logback-classic",
-            "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
-            "org.springframework.boot:spring-boot-starter-redis:${springBootVersion}",
-            "org.springframework.boot:spring-boot-starter-security:${springBootVersion}",
-            "org.slf4j:slf4j-api" ,
-            "org.slf4j:jcl-over-slf4j",
-            "commons-collections:commons-collections:${collections_version}",
-            "com.alibaba:druid:${druid_version}",
-            "org.mybatis:mybatis:${mybatis_version}",
-            "org.mybatis:mybatis-spring:${mybatis_spring_version}",
-            "com.fasterxml.jackson.core:jackson-annotations:${jackson_version}",
-            "com.fasterxml.jackson.core:jackson-core:${jackson_version}",
-            "com.fasterxml.jackson.core:jackson-databind:${jackson_version}",
-            "dom4j:dom4j:${dom4j_version}",
-            "commons-codec:commons-codec:${commonscodec_version}",
-            "io.springfox:springfox-swagger-ui:${swagger_version}",
-            "io.springfox:springfox-swagger2:${swagger_version}",
-            "org.springframework:spring-jdbc",
-            "org.aspectj:aspectjweaver:${aspectj_version}",
-            "org.springframework.session:spring-session:${springSession_version}",
+          compile  "ch.qos.logback:logback-access"
+          compile  "ch.qos.logback:logback-classic"
+          compile  "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+          compile  "org.springframework.boot:spring-boot-starter-redis:${springBootVersion}"
+          compile  "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+          compile  "org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}"
+          compile  "org.slf4j:slf4j-api"
+          compile  "org.slf4j:jcl-over-slf4j"
+          compile  "commons-collections:commons-collections:${collections_version}"
+          compile  "com.alibaba:druid:${druid_version}"
+          compile  "org.mybatis:mybatis:${mybatis_version}"
+          compile  "org.mybatis:mybatis-spring:${mybatis_spring_version}"
+          compile  "com.fasterxml.jackson.core:jackson-annotations:${jackson_version}"
+          compile  "com.fasterxml.jackson.core:jackson-core:${jackson_version}"
+          compile  "com.fasterxml.jackson.core:jackson-databind:${jackson_version}"
+          compile  "dom4j:dom4j:${dom4j_version}"
+          compile  "commons-codec:commons-codec:${commonscodec_version}"
+          compile  "io.springfox:springfox-swagger-ui:${swagger_version}"
+          compile  "io.springfox:springfox-swagger2:${swagger_version}"
+          compile  "org.springframework:spring-jdbc"
+          compile  "org.aspectj:aspectjweaver:${aspectj_version}"
+          compile  "org.springframework.session:spring-session:${springSession_version}"
 
-    )
+
 
     testCompile(
             "junit:junit:4.12",

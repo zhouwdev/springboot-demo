@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
     <Message code="0000" desc="操作成功"/>
+    <Message code="9999" desc="系统异常"/>
 </Root>

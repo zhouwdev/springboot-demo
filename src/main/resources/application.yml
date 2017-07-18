@@ -7,8 +7,21 @@ spring:
     port: 6379
     database: 2
     password: 90-=op[]
-
-
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    exchange:
+      name: test_exchange
+      durable: true
+      autoDelete: false
+    queue:
+      name: test_queue
+      durable: true
+      exclusive: false
+      autoDelete: false
+      routekey: test_routekey
 db:
   mysql_1:
     driverClass: com.mysql.jdbc.Driver
