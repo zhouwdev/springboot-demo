@@ -6,8 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import springboot.demo.common.JsonUtils;
+import springboot.demo.common.RestTemplateExt;
 import springboot.demo.service.RedisService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by zhouwei on 2017/5/27.
@@ -19,6 +25,9 @@ public class BaseTest {
 
     @Autowired
     private RedisService redisService;
+
+    @Autowired
+    private RestTemplateExt restTemplateExt;
 
     @Test
     public void test() {
@@ -45,5 +54,13 @@ public class BaseTest {
         System.out.println(redisService.addLocked("testAddLock",60));
         System.out.println(redisService.get("LOCK_KEY:testAddLock"));
         System.out.println(redisService.get("123"));
+    }
+
+    @Test
+    public void testRest()  throws  Exception{
+        Map<String, String> params = new HashMap<>();
+        params.put("userId","1");
+        Object result = restTemplateExt.getForObject("http://10.52.2.202:7002/api/acct/queryAcctId", new HttpEntity<>(null, null), Object.class, params);
+        System.out.println(JsonUtils.toJson(result));
     }
 }
