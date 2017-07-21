@@ -21,12 +21,12 @@ public class AccountApi {
     @PreAuthorize("hasRole('op:add')")
     @GetMapping("/testGet")
     @ApiOperation(value = "get menthod test", notes = "get menthod test")
-    @AnnotationDemo(name = "test", key = "#id")
+    @AnnotationDemo(name = "test", key = "#id", like = "#id")
     public Object testGet(@ApiParam(name = "id", defaultValue = "1", required = true) @RequestParam Integer id) {
         return "hello word for get menthod";
     }
 
-    @PreAuthorize("hasRole('op:add2')")
+    @PreAuthorize("hasRole('op:add4')")
     @PostMapping(value = "/testPost")
     @ApiOperation(value = "post menthod test", notes = "post menthod test")
     public Object testPost(@RequestBody @Validated ApiReqModel apiReqModel) {
@@ -37,7 +37,8 @@ public class AccountApi {
     @PostMapping("/testPost1")
     @ApiOperation(value = "get menthod post", notes = "get menthod post")
     @AnnotationDemo(name = "test", key = "#apiReqM.amt", like = "#id")
-    public Object testPost1(@RequestBody ApiReqModel apiReqM, @RequestParam Integer id) {
+    public Object testPost1(@RequestBody @Validated ApiReqModel apiReqM,
+                            @ApiParam(name = "id", defaultValue = "1", required = true) @RequestParam Integer id) {
         System.out.println("-----------------------------------");
         return apiReqM;
     }
