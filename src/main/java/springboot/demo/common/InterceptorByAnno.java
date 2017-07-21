@@ -30,19 +30,13 @@ public class InterceptorByAnno {
     }
 
     @Around("pointCutMethod()")
-    public void doAround(ProceedingJoinPoint joinPoint) {
+    public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         Class[] ps = method.getParameterTypes();
         AnnotationDemo annotation = method.getAnnotation(AnnotationDemo.class);
         parse(joinPoint, annotation);
-        Object args[] = joinPoint.getArgs();
-        if(args != null && args.length > 0) {
-            for(Object obj : args) {
-                logger.info(obj!=null?obj.toString():"");
-
-            }
-        }
+        return joinPoint.proceed();
     }
 
 

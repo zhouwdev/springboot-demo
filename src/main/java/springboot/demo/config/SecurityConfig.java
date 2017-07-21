@@ -19,7 +19,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * Created by zhouwei on 2017/6/20.
  */
 @EnableWebSecurity
-
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableRedisHttpSession
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -52,8 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .httpBasic().and().logout()
                 .and().authorizeRequests()
-                .antMatchers("/", "/swagger-ui.html", "/webjars/**", "/swagger-resources", "/v2/api-docs", "/configuration/**", "/api/**", "/**")
-//                .antMatchers("/", "/**", "**", "/swagger-ui.html", "/webjars/**", "/swagger-resources", "/v2/api-docs", "/configuration/**", "/api/**")
+                //.antMatchers("/", "/swagger-ui.html", "/webjars/**", "/swagger-resources", "/v2/api-docs", "/configuration/**", "/api/**", "/**")
+                .antMatchers("/", "/**", "**", "/swagger-ui.html", "/webjars/**", "/swagger-resources", "/v2/api-docs", "/configuration/**", "/api/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();

@@ -5,7 +5,7 @@ spring:
   redis:
     host: 10.52.2.205
     port: 6379
-    database: 2
+    database: 10
     password: 90-=op[]
   rabbitmq:
     addresses: localhost:5672
