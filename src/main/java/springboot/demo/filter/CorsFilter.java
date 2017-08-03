@@ -30,13 +30,13 @@ class CorsFilter implements Filter {
             String origin = request.getHeader("Origin");
             if (refer != null) {
                 for (String it : domainConfig.domain) {
-                    if (refer.indexOf(it + "/") != -1) {
+                    if (refer.indexOf(it) != -1) {
                         response.setHeader("Access-Control-Allow-Origin", it);
                     }
                 }
             } else if (origin != null) {
                 for (String it : domainConfig.domain) {
-                    if (origin.indexOf(it + "/") != -1) {
+                    if (origin.indexOf(it) != -1) {
                         response.setHeader("Access-Control-Allow-Origin", it);
                     }
                 }

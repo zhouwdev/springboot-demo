@@ -63,7 +63,7 @@ db:
 
 #允许跨域的域名及端口
 domain:
-   - http://localhost:9000
-   - http://127.0.0.1:9000
+   - http://localhost:9527
+   - http://127.0.0.1:9527
 
 

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import springboot.demo.common.AnnotationDemo;
 import springboot.demo.model.ApiReqModel;
 
+import javax.servlet.http.HttpSession;
+
 
 /**
  * Created by zhouwei on 2017/5/18.
@@ -41,5 +43,12 @@ public class AccountApi {
                             @ApiParam(name = "id", defaultValue = "1", required = true) @RequestParam Integer id) {
         System.out.println("-----------------------------------");
         return apiReqM;
+    }
+
+    @GetMapping("/userInfo")
+    @ApiOperation(value = "get menthod post", notes = "get menthod post")
+    public Object userInfo(HttpSession session) {
+        System.out.println("-----------------------------------");
+        return session.getId();
     }
 }

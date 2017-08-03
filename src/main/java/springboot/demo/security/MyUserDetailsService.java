@@ -1,4 +1,4 @@
-package springboot.demo.service;
+package springboot.demo.security;
 
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.GrantedAuthority;
