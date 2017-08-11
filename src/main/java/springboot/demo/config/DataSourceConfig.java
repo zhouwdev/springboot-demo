@@ -45,7 +45,7 @@ class dataSourceConfig1 {
 @MapperScan(basePackages = "com.springboot.core.mapper.2", sqlSessionFactoryRef = "sqlSessionFactory2")
 class dataSourceConfig2 {
 
-    @Bean(destroyMethod = "close", name = "datasource2")
+    @Bean(name = "datasource2")
     @ConfigurationProperties(prefix = "db.mysql_2")
     DataSource datasource2() {
         return new DruidDataSource();

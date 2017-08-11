@@ -1,10 +1,10 @@
 buildscript {
     ext {
-        springBootVersion = '1.4.0.RELEASE'
+        springBootVersion = '1.5.2.RELEASE'
     }
     repositories {
         mavenLocal()
-        maven { url "http://10.52.2.106:8081/repository/maven-public/" }
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
     }
 
     dependencies {
@@ -47,7 +47,7 @@ dependencies {
           compile  "ch.qos.logback:logback-access"
           compile  "ch.qos.logback:logback-classic"
           compile  "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-          compile  "org.springframework.boot:spring-boot-starter-redis:${springBootVersion}"
+          compile  "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
           compile  "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
           compile  "org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}"
           compile  "org.slf4j:slf4j-api"
