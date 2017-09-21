@@ -66,8 +66,7 @@ dependencies {
           compile  "org.springframework:spring-jdbc"
           compile  "org.aspectj:aspectjweaver:${aspectj_version}"
           compile  "org.springframework.session:spring-session:${springSession_version}"
-
-
+          compile   group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
 
     testCompile(
             "junit:junit:4.12",

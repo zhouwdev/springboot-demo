@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 @ApiModel("测试请求model")
 public class ApiReqModel {
-    @ApiModelProperty(value = "id", example = "1", required = true)
+    @ApiModelProperty(value = "id", example = "1")
     @Max(value = 3, message = "最大值3")
     public int id;
 

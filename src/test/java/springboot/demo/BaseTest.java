@@ -12,6 +12,7 @@ import springboot.demo.common.JsonUtils;
 import springboot.demo.common.RestTemplateExt;
 import springboot.demo.service.RedisService;
 
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class BaseTest {
         for (int i = 0; i < 5; i++) {
             ThreadCase.ConcurrentTask task = new ThreadCase.ConcurrentTask() {
                 public void run() {
-                    System.out.println("hello");
+                    treadsTest();
                     try {
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -43,9 +44,8 @@ public class BaseTest {
                 }
             };
             tasks[i] = task;
-            new ThreadCase(tasks);
         }
-
+        new ThreadCase(tasks);
     }
 
     @Test
@@ -62,5 +62,24 @@ public class BaseTest {
         params.put("userId","1");
         Object result = restTemplateExt.getForObject("http://10.52.2.202:7002/api/acct/queryAcctId", new HttpEntity<>(null, null), Object.class, params);
         System.out.println(JsonUtils.toJson(result));
+    }
+
+    public void treadsTest() {
+      try {
+          Boolean lock = redisService.addLocked("test_case", 1);
+          if(lock) {
+              System.out.println("获取锁成功-------------");
+          } else {
+              Thread.sleep(5000);
+              lock = redisService.addLocked("test_case", 5);
+              if(lock) {
+                  System.out.println("获取锁成功-------------等待后获取成功");
+              } else {
+                  System.out.println("获取锁失败-------------");
+              }
+          }
+      } catch (Exception e) {
+          System.out.println("treadsTest error");
+      }
     }
 }
