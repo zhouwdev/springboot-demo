@@ -10,10 +10,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import springboot.demo.common.JsonUtils;
 import springboot.demo.common.RestTemplateExt;
+import springboot.demo.service.ITestService;
 import springboot.demo.service.RedisService;
+import springboot.demo.service.TestServiceA;
 
 import java.io.FileInputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +32,9 @@ public class BaseTest {
 
     @Autowired
     private RestTemplateExt restTemplateExt;
+
+    @Autowired
+    private List<ITestService> iTestService;
 
     @Test
     public void test() {
@@ -81,5 +87,13 @@ public class BaseTest {
       } catch (Exception e) {
           System.out.println("treadsTest error");
       }
+    }
+    @Test
+    public void test2() {
+        System.out.println("come in");
+        iTestService.forEach(it-> {if(it.getType() == 1){
+            TestServiceA a = (TestServiceA) it;
+            it.test("---------test----------");
+        } });
     }
 }
