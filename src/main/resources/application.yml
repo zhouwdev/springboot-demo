@@ -1,17 +1,17 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
 
 spring:
   redis:
-    host: 10.52.2.205
-    port: 6379
-    database: 10
-    password: 90-=op[]
+    host: ${REDIS_HOST:10.52.2.205}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:90-=op[]}
+    database: ${REDIS_DATABASE:10}
   rabbitmq:
-    addresses: localhost:5672
-    username: guest
-    password: guest
-    virtual-host: /
+    addresses: ${RABBITMQ_HOST:localhost:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    virtual-host: ${RABBITMQ_VHOST:/}
     exchange:
       name: test_exchange
       durable: true
@@ -27,8 +27,8 @@ db:
     driverClass: com.mysql.jdbc.Driver
     maxActive: 20
     url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
-    username: root
-    password: root
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
     timeBetweenEvictionRunsMillis: 60000
     minEvictableIdleTimeMillis: 25200000
     initialSize: 0

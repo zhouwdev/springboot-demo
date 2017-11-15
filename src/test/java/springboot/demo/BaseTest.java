@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by zhouwei on 2017/5/27.
@@ -82,6 +83,7 @@ public class BaseTest {
                   System.out.println("获取锁成功-------------等待后获取成功");
               } else {
                   System.out.println("获取锁失败-------------");
+
               }
           }
       } catch (Exception e) {

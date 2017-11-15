@@ -9,17 +9,19 @@ buildscript {
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
 
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'spring-boot'
-
+apply plugin: 'org.springframework.boot'
+apply plugin: 'application'
+apply plugin: 'docker'
 sourceCompatibility = 1.8
 group 'springboot-demo'
-//version '1.0'
+version '1.0'
 
 [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 
@@ -29,44 +31,44 @@ repositories {
     }
 }
 
-ext{
-    springSession_version="1.0.2.RELEASE"
-    collections_version="3.2.1"
-    druid_version="1.0.10"
-    mybatis_version="3.2.6"
-    mybatis_spring_version="1.2.2"
-    jackson_version="2.7.1"
-    dom4j_version="1.6.1"
-    commonscodec_version ="1.10"
-    swagger_version="2.3.0"
-    mysql_connector_version="5.1.29"
-    aspectj_version="1.7.1"
+ext {
+    springSession_version = "1.0.2.RELEASE"
+    collections_version = "3.2.1"
+    druid_version = "1.0.10"
+    mybatis_version = "3.2.6"
+    mybatis_spring_version = "1.2.2"
+    jackson_version = "2.7.1"
+    dom4j_version = "1.6.1"
+    commonscodec_version = "1.10"
+    swagger_version = "2.3.0"
+    mysql_connector_version = "5.1.29"
+    aspectj_version = "1.7.1"
 }
 
 dependencies {
-          compile  "ch.qos.logback:logback-access"
-          compile  "ch.qos.logback:logback-classic"
-          compile  "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-          compile  "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
-          compile  "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
-          compile  "org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}"
-          compile  "org.slf4j:slf4j-api"
-          compile  "org.slf4j:jcl-over-slf4j"
-          compile  "commons-collections:commons-collections:${collections_version}"
-          compile  "com.alibaba:druid:${druid_version}"
-          compile  "org.mybatis:mybatis:${mybatis_version}"
-          compile  "org.mybatis:mybatis-spring:${mybatis_spring_version}"
-          compile  "com.fasterxml.jackson.core:jackson-annotations:${jackson_version}"
-          compile  "com.fasterxml.jackson.core:jackson-core:${jackson_version}"
-          compile  "com.fasterxml.jackson.core:jackson-databind:${jackson_version}"
-          compile  "dom4j:dom4j:${dom4j_version}"
-          compile  "commons-codec:commons-codec:${commonscodec_version}"
-          compile  "io.springfox:springfox-swagger-ui:${swagger_version}"
-          compile  "io.springfox:springfox-swagger2:${swagger_version}"
-          compile  "org.springframework:spring-jdbc"
-          compile  "org.aspectj:aspectjweaver:${aspectj_version}"
-          compile  "org.springframework.session:spring-session:${springSession_version}"
-          compile   group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
+    compile "ch.qos.logback:logback-access"
+    compile "ch.qos.logback:logback-classic"
+    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}"
+    compile "org.slf4j:slf4j-api"
+    compile "org.slf4j:jcl-over-slf4j"
+    compile "commons-collections:commons-collections:${collections_version}"
+    compile "com.alibaba:druid:${druid_version}"
+    compile "org.mybatis:mybatis:${mybatis_version}"
+    compile "org.mybatis:mybatis-spring:${mybatis_spring_version}"
+    compile "com.fasterxml.jackson.core:jackson-annotations:${jackson_version}"
+    compile "com.fasterxml.jackson.core:jackson-core:${jackson_version}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${jackson_version}"
+    compile "dom4j:dom4j:${dom4j_version}"
+    compile "commons-codec:commons-codec:${commonscodec_version}"
+    compile "io.springfox:springfox-swagger-ui:${swagger_version}"
+    compile "io.springfox:springfox-swagger2:${swagger_version}"
+    compile "org.springframework:spring-jdbc"
+    compile "org.aspectj:aspectjweaver:${aspectj_version}"
+    compile "org.springframework.session:spring-session:${springSession_version}"
+    compile group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
 
     testCompile(
             "junit:junit:4.12",
@@ -116,3 +118,40 @@ dependencies {
     }
 }
 
+docker {
+    baseImage "openjdk:latest"
+    maintainer = 'jinshubao jinshubao123@126.com'
+    registry 'springboot-demo'
+}
+
+distDocker {
+    push = false
+    exposePort(8080)
+
+    setEnvironment("SERVER_PORT", "8080")
+
+    setEnvironment("REDIS_HOST", "loalhost")
+//    setEnvironment("REDIS_PASSWORD", "")
+    setEnvironment("REDIS_DATABASE", "0")
+
+    setEnvironment("REDIS_LOGGING_HOST", "localhost")
+    setEnvironment("REDIS_LOGGING_PORT", "6379")
+//    setEnvironment("REDIS_LOGGING_PASSWORD", "")
+    setEnvironment("REDIS_LOGGING_DATABASE", "0")
+
+    setEnvironment("DB_HOST", "loalhost")
+    setEnvironment("DB_PORT", "3306")
+    setEnvironment("DB_USERNAME", "root")
+    setEnvironment("DB_PASSWORD", "root")
+
+    setEnvironment("RABBITMQ_HOST", "localhost")
+    setEnvironment("RABBITMQ_PORT", "5672")
+    setEnvironment("RABBITMQ_USERNAME", "guest")
+    setEnvironment("RABBITMQ_PASSWORD", "guest")
+    setEnvironment("RABBITMQ_VHOST", "/")
+
+    setEnvironment('JAVA_OPTS', '-Xms128m -Xmx256m -Djava.security.egd=file:/dev/./urandom')
+
+    volume("/tmp")
+
+}
